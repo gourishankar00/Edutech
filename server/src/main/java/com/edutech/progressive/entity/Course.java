@@ -1,18 +1,12 @@
 package com.edutech.progressive.entity;
 
-<<<<<<< HEAD
 import javax.persistence.CascadeType;
-=======
->>>>>>> da00091ad872a836b59ca45ee771b5376278a319
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-<<<<<<< HEAD
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-=======
->>>>>>> da00091ad872a836b59ca45ee771b5376278a319
 
 @Entity
 public class Course {
@@ -21,14 +15,10 @@ public class Course {
     private int courseId;
     private String courseName;
     private String description;
-<<<<<<< HEAD
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
     //private int teacherId;
-=======
-    private int teacherId;
->>>>>>> da00091ad872a836b59ca45ee771b5376278a319
 
     public Course() {
     }
@@ -37,12 +27,8 @@ public class Course {
         this.courseId = courseId;
         this.courseName = courseName;
         this.description = description;
-<<<<<<< HEAD
         //this.teacherId = teacherId;
         this.teacher.setTeacherId(teacherId);
-=======
-        this.teacherId = teacherId;
->>>>>>> da00091ad872a836b59ca45ee771b5376278a319
     }
 
     public int getCourseId() {
@@ -69,7 +55,6 @@ public class Course {
         this.description = description;
     }
 
-<<<<<<< HEAD
     // public int getTeacherId() {
     //     return teacherId;
     // }
@@ -82,14 +67,6 @@ public class Course {
     }
     public void setTeacher(Teacher teacher){
         this.teacher = teacher;
-=======
-    public int getTeacherId() {
-        return teacherId;
-    }
-
-    public void setTeacherId(int teacherId) {
-        this.teacherId = teacherId;
->>>>>>> da00091ad872a836b59ca45ee771b5376278a319
     }
 
 }

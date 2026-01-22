@@ -1,41 +1,94 @@
 package com.edutech.progressive.controller;
 
 import com.edutech.progressive.entity.Student;
+import com.edutech.progressive.service.impl.StudentServiceImplArraylist;
+import com.edutech.progressive.service.impl.StudentServiceImplJpa;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/student")
 public class StudentController {
 
+    @Autowired
+    private StudentServiceImplArraylist studentServiceImplArraylist;
+
+    @Autowired
+    private StudentServiceImplJpa studentServiceImplJpa;
+
+    @GetMapping
     public ResponseEntity<List<Student>> getAllStudents() {
-        return null;
+        try {
+            return new ResponseEntity<>(studentServiceImplJpa.getAllStudents(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
+    @GetMapping("/{studentId}")
     public ResponseEntity<Student> getStudentById(int studentId) {
-        return null;
+        try {
+            return new ResponseEntity<>(studentServiceImplJpa.getStudentById(studentId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
+    @PostMapping
     public ResponseEntity<Integer> addStudent(Student student) {
-        return null;
+        try {
+            return new ResponseEntity<>(studentServiceImplJpa.addStudent(student), HttpStatus.CREATED);
+            // } catch (RuntimeException e) {
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    public ResponseEntity<Void> updateStudent(int studentId, Student student) {
-        return null;
+    @PutMapping("/{studentId}")
+    public ResponseEntity<Void> updateStudent(@PathVariable int studentId, @RequestBody Student student) {
+        try {
+            student.setStudentId(studentId);
+            studentServiceImplJpa.updateStudent(student);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            throw new RuntimeException("");
+        }
     }
 
-    public ResponseEntity<Void> deleteStudent(int studentId) {
-        return null;
+    @DeleteMapping("/{studentId}")
+    public ResponseEntity<Void> deleteStudent(@PathVariable int studentId) {
+        try {
+            studentServiceImplJpa.deleteStudent(studentId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
+    @GetMapping("/fromArrayList")
     public ResponseEntity<List<Student>> getAllStudentFromArrayList() {
-        return null;
+        return new ResponseEntity<>(studentServiceImplArraylist.getAllStudents(), HttpStatus.OK);
     }
 
+    @PostMapping("/toArrayList")
     public ResponseEntity<Integer> addStudentToArrayList(Student student) {
-        return null;
+        return new ResponseEntity<>(studentServiceImplArraylist.addStudent(student), HttpStatus.CREATED);
     }
 
+    @GetMapping("/fromArrayList/sorted")
     public ResponseEntity<List<Student>> getAllStudentSortedByNameFromArrayList() {
-        return null;
+        return new ResponseEntity<>(studentServiceImplArraylist.getAllStudentSortedByName(), HttpStatus.OK);
     }
 }

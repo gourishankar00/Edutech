@@ -53,7 +53,7 @@ public class TeacherController {
     }
 
     @PutMapping("/{teacherId}")
-    public ResponseEntity<Void> updateTeacher(@PathVariable int teacherId,@RequestBody Teacher teacher) {
+    public ResponseEntity<Void> updateTeacher(@PathVariable int teacherId, @RequestBody Teacher teacher) {
         try {
             teacherServiceImplJpa.updateTeacher(teacher);
             return new ResponseEntity<>(HttpStatus.OK);

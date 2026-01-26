@@ -15,6 +15,8 @@ import com.edutech.progressive.entity.Course;
 @Repository
 
 public interface CourseRepository extends JpaRepository<Course, Integer> {
+
+    Course findByCourseName(String courseName);
     @Query("SELECT c FROM Course c WHERE c.courseId = :courseId")
     public Course findByCourseId(@Param("courseId") int courseId);
 

@@ -38,7 +38,7 @@ public class StudentController {
     }
 
     @GetMapping("/{studentId}")
-    public ResponseEntity<Student> getStudentById(int studentId) {
+    public ResponseEntity<Student> getStudentById(@PathVariable int studentId) {
         try {
             return new ResponseEntity<>(studentServiceImplJpa.getStudentById(studentId), HttpStatus.OK);
         } catch (Exception e) {
@@ -46,8 +46,9 @@ public class StudentController {
         }
     }
 
+
     @PostMapping
-    public ResponseEntity<Integer> addStudent(Student student) {
+    public ResponseEntity<Integer> addStudent(@RequestBody Student student) {
         try {
             return new ResponseEntity<>(studentServiceImplJpa.addStudent(student), HttpStatus.CREATED);
             // } catch (RuntimeException e) {
